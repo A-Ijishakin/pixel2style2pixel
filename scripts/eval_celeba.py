@@ -89,6 +89,7 @@ class EvalCeleba_Test():
                 for index, batch in enumerate(train_loader):
                     image, labels = batch['imgs'].to(self.args.device), batch['labels'].to(self.args.device)  
                     latent = self.encoder(image)  
+                    breakpoint()
                     latent = torch.mean(latent, dim=1)  
                     logits = classifier(latent)   
                     # loss = loss_fn(logits, labels) 
