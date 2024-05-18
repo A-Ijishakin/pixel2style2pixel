@@ -36,9 +36,10 @@ class EvalCeleba_Test():
                 opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt'
                 opts['learn_in_w'] = False
                 opts = Namespace(**opts)
+                breakpoint()
                 model = pSp(opts)
 
-                breakpoint()
+
                 model = pSp() 
                 encoder = model.encoder 
                 self.encoder = encoder.to(args.device)
