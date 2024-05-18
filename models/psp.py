@@ -44,13 +44,26 @@ class pSp(nn.Module):
 			raise Exception('{} is not a valid encoders'.format(self.opts.encoder_type))
 		return encoder
 
+
+	def get_keys(self, ckpt, key):
+		return ckpt[key] if key in ckpt else {}
+
+
 	def load_weights(self):
 		if self.opts.checkpoint_path is not None:
 			print('Loading pSp from checkpoint: {}'.format(self.opts.checkpoint_path))
 			ckpt = torch.load(self.opts.checkpoint_path, map_location='cpu')
-			self.encoder.load_state_dict(get_keys(ckpt, 'encoder'), strict=True)
-			self.decoder.load_state_dict(get_keys(ckpt, 'decoder'), strict=True)
-			self.__load_latent_avg(ckpt)
+			
+			# Filter encoder state_dict
+			encoder_ckpt = self.get_keys(ckpt, 'encoder')
+			encoder_state_dict = {k: v for k, v in encoder_ckpt.items() if k in self.encoder.state_dict()}
+			self.encoder.load_state_dict(encoder_state_dict, strict=False)
+			
+			# Filter decoder state_dict
+			decoder_ckpt = self.get_keys(ckpt, 'decoder')
+			decoder_state_dict = {k: v for k, v in decoder_ckpt.items() if k in self.decoder.state_dict()}
+			self.decoder.load_state_dict(decoder_state_dict, strict=False)
+
 		else:
 			print('Loading encoders weights from irse50!')
 			encoder_ckpt = torch.load(model_paths['ir_se50'])
