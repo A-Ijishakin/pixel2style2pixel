@@ -29,9 +29,16 @@ class EvalCeleba_Test():
     def __init__(self, args):
         self.args = args            
         if args.ext != 'ffhq': 
-                model_specs = {"id": "1bMTNWkh5LArlaWSc_wa8VKyq2V42T2z0", "name": "psp_ffhq_encode.pt"} 
-                self.get_download_model_command(model_specs['id'], model_specs['name']) 
-                ckpt = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
+                # model_specs = {"id": "1bMTNWkh5LArlaWSc_wa8VKyq2V42T2z0", "name": "psp_ffhq_encode.pt"} 
+                # self.get_download_model_command(model_specs['id'], model_specs['name']) 
+                opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')['opts'] 
+                opts['output_size'] = 512 
+                opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt'
+                opts['learn_in_w'] = False
+                # opts['encoder_type'] = 'BackboneEncoderUsingLastLayerIntoWPlus' 
+                opts = Namespace(**opts)
+                model = pSp(opts)
+
                 breakpoint()
                 model = pSp() 
                 model.load_state_dict(ckpt['state_dict']) 
@@ -39,7 +46,7 @@ class EvalCeleba_Test():
                 self.encoder = encoder.to(args.device)
                 
         else:
-            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')['opts'] 
+            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
             opts['output_size'] = 512 
             breakpoint()
             opts = Namespace(**opts)
