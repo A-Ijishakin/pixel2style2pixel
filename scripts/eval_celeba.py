@@ -28,7 +28,7 @@ class EvalCeleba_Test():
         self.args = args    
         
         if args.ext != 'ffhq': 
-                ckpt = torch.load('psp_ffhq_frontalization.pt', map_location='cpu')
+                ckpt = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
                 breakpoint()
                 model = pSp() 
                 model.load_state_dict(ckpt['state_dict']) 
@@ -36,7 +36,7 @@ class EvalCeleba_Test():
                 self.encoder = encoder.to(args.device)
                 
         else:
-            ckpt = torch.load('psp_celebs_sketch_to_face.pt', map_location='cpu')
+            ckpt = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')
             breakpoint()
             model = pSp() 
             model.load_state_dict(ckpt['state_dict']) 
