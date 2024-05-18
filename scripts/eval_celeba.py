@@ -91,6 +91,7 @@ class EvalCeleba_Test():
                     latent = self.encoder(image) 
                     logits = classifier(latent)   
                     # loss = loss_fn(logits, labels) 
+                    breakpoint()
                     loss = loss_fn.compute(logits, labels, return_dict=False)
                     loss.backward()
                     optimizer.step() 
