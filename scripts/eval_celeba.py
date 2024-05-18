@@ -44,6 +44,7 @@ class EvalCeleba_Test():
             opts['output_size'] = 512 
             opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_super_resolution.pt'
             opts['learn_in_w'] = False 
+            opts['encoder_type'] = 'GradualStyleEncoder' 
             opts = Namespace(**opts)
             model = pSp(opts) 
             self.encoder = model.encoder.to(args.device)
