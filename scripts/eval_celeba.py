@@ -36,12 +36,8 @@ class EvalCeleba_Test():
                 opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_seg_to_face.pt'
                 opts['learn_in_w'] = False
                 opts = Namespace(**opts)
-                model = pSp(opts)
-
-
-                model = pSp() 
-                encoder = model.encoder 
-                self.encoder = encoder.to(args.device)
+                model = pSp(opts) 
+                breakpoint()
                 
         else:
             opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
