@@ -92,7 +92,6 @@ class EvalCeleba_Test():
                     latent = torch.mean(latent, dim=1)  
                     logits = classifier(latent)   
                     # loss = loss_fn(logits, labels) 
-                    breakpoint()
                     loss = loss_fn.compute(logits, labels, return_dict=False)
                     loss.backward()
                     optimizer.step() 
