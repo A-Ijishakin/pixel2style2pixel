@@ -247,5 +247,5 @@ class EvalCeleba_Test():
 
 if __name__ == '__main__':
     multiprocessing.set_start_method('spawn')  
-    EvalCeleba_Test(args=args).train()  
+    # EvalCeleba_Test(args=args).train()  
     EvalCeleba_Test(args=args).eval_accuracy() 
