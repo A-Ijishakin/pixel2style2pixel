@@ -40,11 +40,11 @@ class EvalCeleba_Test():
                 self.encoder = model.encoder.to(args.device)
                 
         else:
-            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_encode.pt', map_location='cpu')
+            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_encode.pt', map_location='cpu')['opts']
             opts['output_size'] = 512 
             opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_encode.pt'
             opts['learn_in_w'] = False 
-            # opts['encoder_type'] = 'GradualStyleEncoder' 
+            opts['encoder_type'] = 'GradualStyleEncoder' 
             opts = Namespace(**opts)
             model = pSp(opts) 
             self.encoder = model.encoder.to(args.device)
