@@ -230,7 +230,7 @@ class EvalCeleba_Test():
         torch.save(classifier, f'runs/m-{self.args.ext}/{type}/classifier{extra_string}.pt') 
 
 
-    def eval_accuracy(self, mode=2, batch_size=32):
+    def eval_accuracy(self, mode=2, batch_size=16):
         test_loader =  DataLoader(dataset = CelebA_Dataset(mode=mode, dataset=self.args.ext) , batch_size=batch_size, 
                                 shuffle=False, 
                                 num_workers=8, 
