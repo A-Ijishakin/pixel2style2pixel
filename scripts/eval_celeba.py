@@ -35,13 +35,11 @@ class EvalCeleba_Test():
                 opts['output_size'] = 512 
                 opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt'
                 opts['learn_in_w'] = False
-                # opts['encoder_type'] = 'BackboneEncoderUsingLastLayerIntoWPlus' 
                 opts = Namespace(**opts)
                 model = pSp(opts)
 
                 breakpoint()
                 model = pSp() 
-                model.load_state_dict(ckpt['state_dict']) 
                 encoder = model.encoder 
                 self.encoder = encoder.to(args.device)
                 
@@ -51,7 +49,6 @@ class EvalCeleba_Test():
             breakpoint()
             opts = Namespace(**opts)
             model = pSp(opts) 
-            model.load_state_dict(ckpt['state_dict']) 
             encoder = model.encoder 
             self.encoder = encoder.to(args.device)
             self.encoder = encoder.to(args.device) 
