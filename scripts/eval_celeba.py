@@ -37,7 +37,7 @@ class EvalCeleba_Test():
                 opts['learn_in_w'] = False
                 opts = Namespace(**opts)
                 model = pSp(opts) 
-                breakpoint()
+                self.encoder = model.encoder 
                 
         else:
             opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
