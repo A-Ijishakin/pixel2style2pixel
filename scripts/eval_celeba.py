@@ -88,7 +88,8 @@ class EvalCeleba_Test():
                 classifier.train()
                 for index, batch in enumerate(train_loader):
                     image, labels = batch['imgs'].to(self.args.device), batch['labels'].to(self.args.device)  
-                    latent = self.encoder(image) 
+                    latent = self.encoder(image)  
+                    latent = torch.mean(latent, dim=1)  
                     logits = classifier(latent)   
                     # loss = loss_fn(logits, labels) 
                     breakpoint()
@@ -207,6 +208,7 @@ class EvalCeleba_Test():
         for batch in eval_loader: 
             image, labels = batch['imgs'].to(self.args.device), batch['labels'].to(self.args.device)  
             latent = self.encoder(image) 
+            latent = torch.mean(latent, dim=1)  
             predictions = classifier(latent)    
             
             y_gt.append(labels.detach().cpu())
