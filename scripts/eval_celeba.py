@@ -4,7 +4,7 @@ sys.path.append('../')
 import torch 
 import numpy as np 
 import torch.nn as nn  
-from datasets import CelebA_Dataset 
+from dataset import CelebA_Dataset 
 import multiprocessing 
 from torch.optim import Adam     
 from metric import MultiTaskLoss 
@@ -27,9 +27,10 @@ args = parser.parse_args()
  
 class EvalCeleba_Test():
     def __init__(self, args):
-        self.args = args    
-        
+        self.args = args            
         if args.ext != 'ffhq': 
+                model_specs = {"id": "1bMTNWkh5LArlaWSc_wa8VKyq2V42T2z0", "name": "psp_ffhq_encode.pt"} 
+                self.get_download_model_command(model_specs['id'], model_specs['name']) 
                 ckpt = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
                 breakpoint()
                 model = pSp() 
@@ -120,7 +121,19 @@ class EvalCeleba_Test():
                     step=(epoch * length) + index) 
 
                 self.save_classifier(classifier=classifier, type='last') 
-                     
+    
+    
+    
+    def get_download_model_command(self, file_id, file_name):
+        save_path = 'pretrained_models'
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        url = r"""wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id={FILE_ID}' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id={FILE_ID}" -O {SAVE_PATH}/{FILE_NAME} && rm -rf /tmp/cookies.txt""".format(FILE_ID=file_id, FILE_NAME=file_name, SAVE_PATH=save_path)
+        return url
+        
+        
+    
+    
     def eval_multitask(self, eval_loader, classifier, pbar=None, loading_bar=False, 
                         terminating_index=np.inf, step=None, 
                         mean=None, std=None, attr_idx=-1, avg=False, mask=None):
