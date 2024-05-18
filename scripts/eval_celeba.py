@@ -36,7 +36,6 @@ class EvalCeleba_Test():
                 opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_seg_to_face.pt'
                 opts['learn_in_w'] = False
                 opts = Namespace(**opts)
-                breakpoint()
                 model = pSp(opts)
 
 
