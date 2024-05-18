@@ -57,7 +57,7 @@ class GradualStyleEncoder(Module):
         self.style_count = opts.n_styles
         self.coarse_ind = 3
         self.middle_ind = 7
-        for i in range(self.style_count):
+        for i in range(self.style_count +2):
             if i < self.coarse_ind:
                 style = GradualStyleBlock(512, 512, 16)
             elif i < self.middle_ind:
