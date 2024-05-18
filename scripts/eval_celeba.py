@@ -31,23 +31,23 @@ class EvalCeleba_Test():
         if args.ext != 'ffhq': 
                 # model_specs = {"id": "1bMTNWkh5LArlaWSc_wa8VKyq2V42T2z0", "name": "psp_ffhq_encode.pt"} 
                 # self.get_download_model_command(model_specs['id'], model_specs['name']) 
-                opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')['opts'] 
+                opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_super_resolution.pt', map_location='cpu')['opts'] 
                 opts['output_size'] = 512 
-                opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_seg_to_face.pt'
+                opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_super_resolution.pt'
                 opts['learn_in_w'] = False
                 opts = Namespace(**opts)
                 model = pSp(opts) 
-                self.encoder = model.encoder 
+                self.encoder = model.encoder.to(args.device)
                 
         else:
-            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_frontalization.pt', map_location='cpu')
+            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_ffhq_encode.pt', map_location='cpu')
             opts['output_size'] = 512 
-            breakpoint()
+            opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_super_resolution.pt'
+            opts['learn_in_w'] = False 
             opts = Namespace(**opts)
             model = pSp(opts) 
-            encoder = model.encoder 
-            self.encoder = encoder.to(args.device)
-            self.encoder = encoder.to(args.device) 
+            self.encoder = model.encoder.to(args.device)
+
         
         wandb.init(project="HSpace-SAEs", entity="a-ijishakin",
                         name=f'PDAE testing {args.ext}')

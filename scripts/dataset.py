@@ -30,7 +30,7 @@ class CelebA_Dataset(torch.utils.data.Dataset):
         #instantiate the base directory 
         self.base = '/home/rmapaij/sae_bench/img_align_celeba' 
         
-        self.size = 512 
+        self.size = 512 if dataset != 'celeba' else 64 
         
     def __len__(self): 
         return len(self.datums) - 1 
