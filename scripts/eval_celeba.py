@@ -31,9 +31,9 @@ class EvalCeleba_Test():
         if args.ext != 'ffhq': 
                 # model_specs = {"id": "1bMTNWkh5LArlaWSc_wa8VKyq2V42T2z0", "name": "psp_ffhq_encode.pt"} 
                 # self.get_download_model_command(model_specs['id'], model_specs['name']) 
-                opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')['opts'] 
+                opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_seg_to_face.pt', map_location='cpu')['opts'] 
                 opts['output_size'] = 512 
-                opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt'
+                opts['checkpoint_path'] = '/home/rmapaij/sae_bench/pSpGAN/psp_celebs_seg_to_face.pt'
                 opts['learn_in_w'] = False
                 opts = Namespace(**opts)
                 breakpoint()
