@@ -14,6 +14,8 @@ import os
 import argparse
 from sklearn.metrics import average_precision_score, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score  
 from models.psp import pSp 
+from argparse import Namespace
+
 
 parser = argparse.ArgumentParser(description='CelebA Evaluation') 
 parser.add_argument('--device', default='cuda:0', type=str) 
@@ -36,9 +38,11 @@ class EvalCeleba_Test():
                 self.encoder = encoder.to(args.device)
                 
         else:
-            ckpt = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')
+            opts = torch.load('/home/rmapaij/sae_bench/pSpGAN/psp_celebs_sketch_to_face.pt', map_location='cpu')['opts'] 
+            opts['output_size'] = 512 
             breakpoint()
-            model = pSp() 
+            opts = Namespace(**opts)
+            model = pSp(opts) 
             model.load_state_dict(ckpt['state_dict']) 
             encoder = model.encoder 
             self.encoder = encoder.to(args.device)
